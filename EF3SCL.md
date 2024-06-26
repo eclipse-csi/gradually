@@ -1,26 +1,26 @@
 # Eclipse Foundation Secure Software Supply Chain Levels
 
-v0.1
+v0.2
 
 ## Introduction
 
-This document presents a comprehensive framework designed to enhance the security of software supply chains through progressive levels of security practices. At its core, the document is structured around several key categories that organize these practices, each focusing on a different aspect of software development and deployment:
+This document outlines a comprehensive framework to enhance the security of software supply chains through progressive security practices. The framework is organized into key categories, each addressing different aspects of software development and deployment:
 
-- **Secure the Developers**: This category emphasizes the importance of equipping developers with the knowledge and tools necessary to safeguard their development environments against unauthorized access and potential vulnerabilities. It stresses the importance of continuous education and the adoption of best practices in security.
+* **Secure the Developers**: Focuses on equipping developers with the knowledge and tools needed to protect their development environments from unauthorized access and vulnerabilities. Emphasizes continuous education and the adoption of best security practices.
 
-- **Secure the Source Code Repositories**: This category highlights the significance of securing access to code repositories. It covers practices ranging from managing access through modern cryptographic algorithms and short-lived tokens, to restricting direct push to main branches and ensuring transparency in granting privileged access.
+* **Secure the Source Code Repositories**: Highlights the importance of securing access to code repositories. Includes practices such as using modern cryptographic algorithms, short-lived tokens for access management, restricting direct pushes to branches, and ensuring transparency in granting privileged access.
 
-- **Secure the Code**: This area focuses on the practices that ensure the integrity and security of the code itself. It includes measures such as peer review of commits to main branches, automated secret detection, and the establishment of stringent security policies for vulnerability management.
+* **Secure the Code**: Concentrates on maintaining the integrity and security of the code. Includes peer review of commits to main branches, automated secret detection, and stringent security policies for vulnerability management.
 
-- **Secure the Build**: Secure build practices ensure that the build process is protected against unauthorized access and tampering. This includes using CI as Code for automation, employing ephemeral build environments, and generating build provenance to maintain integrity and traceability throughout the software development lifecycle.
+* **Secure the Build**: Ensures that the build process is protected from unauthorized access and tampering. Involves using CI as Code for automation, employing ephemeral build environments, and generating build provenance to maintain integrity and traceability.
 
-- **Secure the Dependencies**: This section outlines the need for rigorous management of third-party dependencies to prevent the introduction of vulnerabilities. It encompasses license compliance, software composition analysis, and the use of secure channels for dependency retrieval, among others.
+* **Secure the Dependencies**: Stresses rigorous management of third-party dependencies to prevent introducing vulnerabilities. Covers license compliance, software composition analysis, and secure channels for dependency retrieval.
 
-- **Secure the Deployment**: This category deals with practices related to the secure deployment of software, such as release management automation and the digital signing of released artifacts. It focuses on maintaining the security and integrity of software as it is released or deployed to production environments.
+* **Secure the Deployment**: Addresses practices for secure software deployment, such as release management automation and digital signing of released artifacts, to maintain security and integrity in production environments.
 
-- **Secure the Consumption**: Finally, this area addresses the need for downstream users consuming the software, including continuous monitoring of SBOMs for vulnerabilities and establishing service level objectives for mean time to remediate security alerts.
+* **Secure the Consumption**: Focuses on the needs of downstream users, including continuous monitoring of SBOMs for vulnerabilities and establishing service level objectives for quick remediation of security alerts.
 
-Each of these categories is important for building and maintaining a secure software supply chain. By organizing the document around these categories, the Eclipse Foundation provides a clear and structured approach to implementing security practices at various levels, from entry-level security measures to state-of-the-art practices that anticipate and mitigate emerging threats.
+Each category is essential for building and maintaining a secure software supply chain. This structured approach by the Eclipse Foundation helps implement security practices at various levels, from basic measures to advanced practices that anticipate and mitigate emerging threats.
 
 ## Level 1: Launchpad 🚀
 
@@ -28,12 +28,13 @@ Each of these categories is important for building and maintaining a secure soft
 
 ### Secure the source code repositories
 
-* **Source code is managed in SCM:** Utilizes SCM systems for organizing and storing source code, enabling tracking of changes and collaboration among developers. 
+* **Source code is managed in SCM:** Utilizes SCM systems for organizing and storing source code, enabling tracking of changes and collaboration among developers.
   * ✅ guaranteed by default by virtue of being an Eclipse Foundation project
 * **Public record-keeping of granting privileged access to source code repositories:** Privileged access to source code repositories is awarded through a transparent, publicly recorded election.
   * ✅ guaranteed by default by virtue of being an Eclipse Foundation project and adhering to Eclipse Foundation Development Process.
 * **MFA for privileged repository access:** Write access to source code repositories is protected by MFA.
-* **Restriction on Force-Push:** Prohibits the use of force-push to repositories, preventing the risk of overwriting history and losing code.
+  * ✅ guaranteed by default by virtue of being an Eclipse Foundation project and adhering to Eclipse Foundation Development Process.
+* **Restriction on Force-Push (default branch only):** Prohibits the use of force-push to repositories, preventing the risk of overwriting history and losing code.
 
 ### Secure the source code
 
@@ -41,9 +42,8 @@ Each of these categories is important for building and maintaining a secure soft
 
 ### Secure the dependencies
 
-* **License compliance:** all third-party dependencies are properly vetted for license compliance and IP cleanliness. 
+* **License compliance:** all third-party dependencies are properly vetted for license compliance and IP cleanliness.
   * ✅ guaranteed by default by virtue of being an Eclipse Foundation project and adhering to Eclipse Foundation Development Process.
-* **Software Composition Analysis (SCA):** Employs an SCA tool to automatically identify vulnerable dependencies before release, mitigating potential security risks.
 
 ### Secure the build
 
@@ -62,14 +62,14 @@ At the *Orbit* level, projects build upon the foundational practices established
 
 * **Automated secret detection:** Implements automated processes to continuously scan the source code repository for accidentally leaked secrets (e.g., API keys, passwords).
 * **Continuous security checks:** Integrates a Static Application Security Testing (SAST) tool into your continuous integration workflows to identify potential vulnerabilities within the source code throughout the development lifecycle.
-* **Enhanced security policy:** Maintains a comprehensive security policy that outlines supported versions and provides a secure persitent channel for reporting and discussing vulnerabilities (e.g., GitHub private vulnerability reporting, GitLab confidential issues). 
+* **Enhanced security policy:** Maintains a comprehensive security policy that outlines supported versions and provides a secure persitent channel for reporting and discussing vulnerabilities (e.g., GitHub private vulnerability reporting, GitLab confidential issues).
 
 ### Secure the dependencies
 
+* **Software Composition Analysis (SCA):** Employs an SCA tool to automatically identify vulnerable dependencies before release, mitigating potential security risks.
 * **Manage dependencies with package managers:** Leverages package managers for dependency management to ensure consistency and control.
 * **Secure dependency retrieval:** Enforces the use of secure channels (e.g., TLS, SSH) for fetching all dependencies.
 * **Prioritize trusted repositories:** Gives preference to trusted, ecosystem-specific primary registries when selecting dependencies.
-* **Vulnerability scanning in contributions:** Integrates a Software Composition Analysis (SCA) tool into the contribution workflow to automatically identify and vet dependencies for vulnerabilities.
 
 ### Secure the build
 
@@ -90,9 +90,11 @@ At the *Orbit* level, projects build upon the foundational practices established
 
 * **Automatic policy to prevent contributions and releases from containing known vulnerabilities**, strict policy to prevent contributions with vulnerabilities from being merged and for releases to be made with vulnerabilities as identified by SAST tools.
 * **Security policy and vulnerability management:** establishes a comprehensive security policy with a clear Service Level Objective (SLO) for reported vulnerability management.
+* **Restriction on Force-Push (all development branches):** Prohibits the use of force-push to repositories, preventing the risk of overwriting history and losing code.
 
 ### Secure the dependencies
 
+* **Vulnerability scanning in contributions:** Integrates a Software Composition Analysis (SCA) tool into the contribution workflow to automatically identify and vet dependencies for vulnerabilities.
 * **Software Bill of Materials (SBOM) generation:** generates a Software Bill of Materials (SBOM) for every software release, providing a complete list of third party dependencies and their versions.
 * **Dependency Verification:** implements automated processes to verify checksums and signatures of all downloaded dependencies.
 
@@ -100,7 +102,7 @@ At the *Orbit* level, projects build upon the foundational practices established
 
 * **Ephemeral Build Environments:** utilizes ephemeral agents (containers or VMs) for all CI/CD builds to minimize attack surface.
 * **Secret Management:** ensures all CI/CD pipeline secrets are known only to the Eclipse Foundation and can be rotated for enhanced security.
-* **Webhook Security:** enforces authentication and secured transport channel (e.g., TLS) for webhooks used in integrations and notifications 
+* **Webhook Security:** enforces authentication and secured transport channel (e.g., TLS) for webhooks used in integrations and notifications.
 * **Build Provenance:** generates and signs build provenance information to track the complete software build history and ensure reproducibility.
 
 ### Secure the deployment
@@ -115,13 +117,13 @@ At the *Orbit* level, projects build upon the foundational practices established
 
 ### Secure the developers
 
-* **Developers are well-versed in best practices:** safeguards their development environments, ensuring that they are equipped with the knowledge and tools to prevent unauthorized access and potential vulnerabilities within their local workspace. 
+* **Developers are well-versed in best practices:** safeguards their development environments, ensuring that they are equipped with the knowledge and tools to prevent unauthorized access and potential vulnerabilities within their local workspace.
 
 ### Secure the source code repositories
 
 * **Access to source code repositories is tightly controlled:** uses fine-grained, short-lived tokens. This minimizes the risk of unauthorized access and potential data breaches by ensuring that access rights are given only for the necessary duration and with the appropriate level of permissions.
 
-### Secure the code 
+### Secure the code
 
 * **All commits to main branches are subjected to peer review by another committer:** ensures that changes are scrutinized for security vulnerabilities, coding standards, and overall quality before being integrated into the main codebase.
 
@@ -158,13 +160,14 @@ At the *Orbit* level, projects build upon the foundational practices established
 * **Reproducible builds:** ensures that the build process can be independently verified by producing byte-for-byte identical outputs from the same source code.
 * **Release build is non-falsifiable:** ensures the integrity and authenticity of the build process, so that the final product can be trusted.
 * **Released artifacts are published to an immutable archive alongside the source code:** secures the build output by making sure that once an artifact is published, it cannot be tampered with or altered.
-* **Release process is not under the control of the project:** decentralizes the release process, adds a layer of security against unauthorized or malicious changes. 
+* **Release process is not under the control of the project:** decentralizes the release process, adds a layer of security against unauthorized or malicious changes.
 
 ### Secure the Dependencies
 
 * **Proactive protection from malicious dependencies:** ensures that malicious (e.g., typo-squatted) dependencies are searched for, in addition to vulnerabilities. It protects the project from integrating potentially harmful external code.
 
 ### Secure the Consumption
+
 * **Has an SLO for Mean Time To Remediate (MTTR) security alerts:** establishes a SLO for addressing security vulnerabilities (vulnerable dependencies, secret leak, etc.) to ensure a rapid response to threats.
 
 ## Level 6: Event Horizon ♾️
