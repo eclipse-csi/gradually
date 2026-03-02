@@ -1,4 +1,4 @@
-This project has been archived. We recommend interested users to look at [Open Source Project Security Baseline (OSPS Baseline)](https://baseline.openssf.org).
+**This project has been archived. We recommend interested users to look at [Open Source Project Security Baseline (OSPS Baseline)](https://baseline.openssf.org).**
 
 # gradually
 
